@@ -9,6 +9,7 @@ const GlobalStyle = createGlobalStyle`
 body{
     background-color:${({ theme }) => theme.mainBack};
     color:${({ theme }) => theme.mainText};
+    font-family: 'Roboto', sans-serif;
 }
 `;
 
