@@ -13,7 +13,7 @@ export default class MyDocument extends Document {
     );
 
     // Step 3: Extract the styles as <style> tags
-    const styleTags = sheet.getStyleElement();
+    const styleTags = sheet.getStyleTags();
 
     // Step 4: Pass styleTags as a prop
     return { ...page, styleTags };
