@@ -5,7 +5,7 @@ import { Navbar } from "../components";
 
 const Main = ({ children, toggleTheme, theme }) => {
   return (
-    <StyledMain className='dark'>
+    <StyledMain>
       <Navbar toggleTheme={toggleTheme} theme={theme} />
       {children}
     </StyledMain>

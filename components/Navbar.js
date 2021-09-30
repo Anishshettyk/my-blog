@@ -1,7 +1,6 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import Link from "next/link";
-import { useDispatch } from "react-redux";
 
 import { FiSun, FiBookmark, FiMoon } from "react-icons/fi";
 
@@ -24,14 +23,24 @@ const Navbar = ({ toggleTheme, theme }) => {
       </NavLinks>
       <NavActions>
         <button
-          title='activate dark mode'
-          aria-label='activate dark mode'
+          title={theme === "dark" ? "active light mode" : "activate dark mode"}
+          aria-label={
+            theme === "dark" ? "active light mode" : "activate dark mode"
+          }
           onClick={toggleTheme}
         >
-          {theme === "dark" ? <FiSun /> : <FiMoon />}
+          {theme === "dark" ? (
+            <FiSun className='sun__icon' />
+          ) : (
+            <FiMoon className='moon__icon' />
+          )}
         </button>
         <button title='bookmarked posts' aria-label='bookmarked posts'>
-          <FiBookmark />
+          <Link href='/bookmarked' passHref>
+            <a>
+              <FiBookmark />
+            </a>
+          </Link>
         </button>
       </NavActions>
     </StyledNav>
@@ -41,13 +50,17 @@ const Navbar = ({ toggleTheme, theme }) => {
 export default Navbar;
 
 const StyledNav = styled.nav`
-  background-color: transparent;
+  background-color: ${(props) => props.theme.mainBack};
   overflow: hidden;
   width: 100%;
   padding: 15px 150px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 100;
 `;
 
 const LogoContainer = styled.div`
@@ -68,19 +81,56 @@ const NavLinks = styled.ul`
     a {
       color: ${(props) => props.theme.mainText};
       font-weight: var(--fw-bold);
+      transition: all 0.2s ease-in-out;
+      &:hover {
+        opacity: 0.8;
+      }
     }
   }
 `;
 
+const rotateSun = keyframes`
+from{
+  transform: rotate(0deg);
+}
+to{
+  transform: rotate(360deg);
+}
+`;
+
+const rotateMoon = keyframes`
+0%{
+  transform: rotate(0deg) scale(1.05);
+}
+50%{
+  transform: rotate(30deg);
+}
+100%{
+  transform: rotate(0deg) scale(1.05);
+}
+
+`;
+
 const NavActions = styled.div`
   button {
-    margin: 0px 10px;
+    margin: 0px 17px;
     border: none;
     background-color: transparent;
+    color: ${(props) => props.theme.mainText};
+    .sun__icon {
+      color: var(--orange);
+      animation: ${rotateSun} 5s linear infinite;
+    }
+    .moon__icon {
+      color: var(--coldBlue);
+      animation: ${rotateMoon} 1.5s linear infinite;
+    }
     svg {
-      color: ${(props) => props.theme.mainHeading};
-      font-size: 1.5rem;
-      color: ${(props) => props.theme.mainText};
+      font-size: var(--fs-xxl);
+      &:hover {
+        animation-play-state: paused;
+        opacity: 0.8;
+      }
     }
   }
 `;

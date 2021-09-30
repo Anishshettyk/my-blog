@@ -22,6 +22,10 @@ ul{
 a{
     text-decoration:none;
     cursor:pointer;
+    color:${(props) => props.theme.mainText};
+}
+button{
+    cursor:pointer;
 }
 `;
 

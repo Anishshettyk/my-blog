@@ -3,18 +3,19 @@ import { css } from "styled-components";
 const variables = css`
   :root {
     //---------COMMAN COLORS----------
-    --color-primary: #00a8ff;
+    --orange: #fc5404;
+    --coldBlue: #5c7aea;
 
     //-----------FONT SIZES----------
-    --fs-xxs: 12px;
-    --fs-xs: 13px;
-    --fs-sm: 14px;
-    --fs-md: 16px;
-    --fs-lg: 18px;
-    --fs-xl: 20px;
-    --fs-xxl: 22px;
-    --fs-heavy: 24px;
-    --fs-heading: 32px;
+    --fs-xxs: 0.4rem;
+    --fs-xs: 0.6rem;
+    --fs-sm: 0.8rem;
+    --fs-md: 1rem;
+    --fs-lg: 1.2rem;
+    --fs-xl: 1.4rem;
+    --fs-xxl: 1.6rem;
+    --fs-heavy: 1.8rem;
+    --fs-heading: 2rem;
 
     //-----------FONT WEIGHTS----------
     --fw-light: 300;
