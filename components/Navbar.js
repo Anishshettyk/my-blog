@@ -67,8 +67,7 @@ const LogoContainer = styled.div`
   h1 {
     font-weight: var(--fw-bold);
     color: ${(props) => props.theme.mainHeading};
-    font-size: var(--fs-xxl);
-    letter-spacing: 0.7px;
+    font-size: var(--fs-xl);
     cursor: pointer;
   }
 `;
