@@ -18,6 +18,7 @@ const Footer = () => {
               <a
                 href={social.link}
                 target='_blank'
+                alt={social.title}
                 rel='noopener noreferrer'
                 style={{ color: social.color }}
               >

@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import styled, { keyframes } from "styled-components";
 import Link from "next/link";
+import PropTypes from "prop-types";
 
 import { FiSun, FiBookmark, FiMoon } from "react-icons/fi";
 
 import { navLinks } from "../utils";
+import { media } from "../styles";
+import { Sidebar } from "./index";
 
 const Navbar = ({ toggleTheme, theme }) => {
+  const [sidebarToggle, setSidebarToggle] = useState(false);
+
   return (
     <StyledNav>
       <LogoContainer>
@@ -43,8 +48,50 @@ const Navbar = ({ toggleTheme, theme }) => {
           </Link>
         </button>
       </NavActions>
+
+      <Sidebar
+        sidebarToggle={sidebarToggle}
+        setSidebarToggle={setSidebarToggle}
+      >
+        <ul>
+          {navLinks.map((link) => (
+            <SidebarLink key={link.id} onClick={() => setSidebarToggle(false)}>
+              <Link href={link.link}>{link.title}</Link>
+            </SidebarLink>
+          ))}
+        </ul>
+        <SidebarActions>
+          <button
+            title={
+              theme === "dark" ? "active light mode" : "activate dark mode"
+            }
+            aria-label={
+              theme === "dark" ? "active light mode" : "activate dark mode"
+            }
+            onClick={toggleTheme}
+          >
+            {theme === "dark" ? (
+              <FiSun className='sun__icon' />
+            ) : (
+              <FiMoon className='moon__icon' />
+            )}
+          </button>
+          <button title='bookmarked posts' aria-label='bookmarked posts'>
+            <Link href='/bookmarked' passHref>
+              <a>
+                <FiBookmark />
+              </a>
+            </Link>
+          </button>
+        </SidebarActions>
+      </Sidebar>
     </StyledNav>
   );
+};
+
+Navbar.propTypes = {
+  toggleTheme: PropTypes.func.isRequired,
+  theme: PropTypes.string.isRequired,
 };
 
 export default Navbar;
@@ -61,6 +108,15 @@ const StyledNav = styled.nav`
   top: 0;
   left: 0;
   z-index: 100;
+  ${media.desktop`
+  padding:15px 100px;
+  `}
+  ${media.netbook`
+  padding: 15px 70px;
+  `}
+  ${media.tphone`
+  padding: 15px 30px;
+  `}
 `;
 
 const LogoContainer = styled.div`
@@ -86,6 +142,9 @@ const NavLinks = styled.ul`
       }
     }
   }
+  ${media.tabletL`
+  display:none;
+  `}
 `;
 
 const rotateSun = keyframes`
@@ -115,6 +174,49 @@ const NavActions = styled.div`
     margin: 0px 17px;
     border: none;
     background-color: transparent;
+    color: ${(props) => props.theme.mainText};
+    .sun__icon {
+      color: var(--orange);
+      animation: ${rotateSun} 5s linear infinite;
+    }
+    .moon__icon {
+      color: var(--coldBlue);
+      animation: ${rotateMoon} 1.5s linear infinite;
+    }
+    svg {
+      font-size: var(--fs-xxl);
+      &:hover {
+        animation-play-state: paused;
+        opacity: 0.8;
+      }
+    }
+  }
+  ${media.tabletL`
+  display:none;
+  `}
+`;
+
+const SidebarLink = styled.li`
+  margin-bottom: 40px;
+  font-size: var(--fs-heavy);
+  text-align: center;
+  font-weight: var(--fw-bold);
+
+  a {
+    color: ${(props) => props.theme.mainText};
+    &:hover {
+      opacity: 0.8;
+      color: ${(props) => props.theme.mainHeading};
+    }
+  }
+`;
+const SidebarActions = styled.div`
+  button {
+    padding: 10px;
+    border-radius: var(--br-sm);
+    background-color: ${(props) => props.theme.secondary};
+    margin: 0px 17px;
+    border: none;
     color: ${(props) => props.theme.mainText};
     .sun__icon {
       color: var(--orange);
