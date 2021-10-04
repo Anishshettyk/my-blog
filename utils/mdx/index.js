@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 
 //get's path to specific folder
-export const filePaths = (dataFolder = "data", subFolder) => {
+export const filePaths = (dataFolder = "Data", subFolder) => {
   if (subFolder) {
     return path.join(process.cwd(), dataFolder, subFolder);
   }

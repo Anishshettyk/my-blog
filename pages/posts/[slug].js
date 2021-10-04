@@ -17,7 +17,7 @@ const Post = ({ source }) => {
 export default Post;
 
 export const getStaticProps = async ({ params }) => {
-  const filePath = path.join(filePaths("data", "posts"), `${params.slug}.mdx`);
+  const filePath = path.join(filePaths("Data", "posts"), `${params.slug}.mdx`);
   const fileSource = fs.readFileSync(filePath, "utf8");
 
   const { content, data } = matter(fileSource);
@@ -40,7 +40,7 @@ export const getStaticProps = async ({ params }) => {
 };
 
 export const getStaticPaths = () => {
-  const paths = getAllFiles("data", "posts")
+  const paths = getAllFiles("Data", "posts")
     .map((path) => path.replace(/\.mdx?$/, ""))
     .map((slug) => ({ params: { slug } }));
 

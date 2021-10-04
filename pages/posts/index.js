@@ -19,9 +19,9 @@ const Posts = ({ posts }) => {
 export default Posts;
 
 export function getStaticProps() {
-  const posts = getAllFiles("data", "posts").map((filePath) => {
+  const posts = getAllFiles("Data", "posts").map((filePath) => {
     const fileSource = fs.readFileSync(
-      path.join(filePaths("data", "posts"), filePath)
+      path.join(filePaths("Data", "posts"), filePath)
     );
     const { data, content } = matter(fileSource);
 
