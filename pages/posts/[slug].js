@@ -4,14 +4,24 @@ import path from "path";
 import matter from "gray-matter";
 import { serialize } from "next-mdx-remote/serialize";
 import { MDXRemote } from "next-mdx-remote";
+import PropTypes from "prop-types";
 
 import { getAllFiles, filePaths } from "../../utils";
 import { Test } from "../../components";
+import { PostLayout } from "../../Layouts";
 
 const components = { Test };
 
-const Post = ({ source }) => {
-  return <MDXRemote {...source} components={components} />;
+const Post = ({ source, frontMatter }) => {
+  return (
+    <PostLayout frontMatter={frontMatter}>
+      <MDXRemote {...source} components={components} />
+    </PostLayout>
+  );
+};
+Post.prototype = {
+  source: PropTypes.node.isRequired,
+  frontMatter: PropTypes.object.isRequired,
 };
 
 export default Post;
