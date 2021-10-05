@@ -5,14 +5,16 @@ import matter from "gray-matter";
 import { serialize } from "next-mdx-remote/serialize";
 import { MDXRemote } from "next-mdx-remote";
 import PropTypes from "prop-types";
+import readingTime from "reading-time";
 
-import { getAllFiles, filePaths } from "../../utils";
+import { getAllFiles, filePaths, getFileBySlug } from "../../utils";
 import { Test } from "../../components";
 import { PostLayout } from "../../Layouts";
 
 const components = { Test };
 
 const Post = ({ source, frontMatter }) => {
+  console.log(frontMatter);
   return (
     <PostLayout frontMatter={frontMatter}>
       <MDXRemote {...source} components={components} />
@@ -44,7 +46,11 @@ export const getStaticProps = async ({ params }) => {
   return {
     props: {
       source: mdxSource,
-      frontMatter: data,
+      frontMatter: {
+        slug: params.slug || null,
+        readingTime: readingTime(content),
+        ...data,
+      },
     },
   };
 };
